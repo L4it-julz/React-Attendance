@@ -1,0 +1,13 @@
+.info {
+    margin-top: 10px;
+    width: auto;
+    border: 1px solid black;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.picture {
+    width: auto;
+    height: auto;
+    margin-top: 5px;
+}
