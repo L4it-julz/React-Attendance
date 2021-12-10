@@ -1,5 +1,6 @@
 import React from "react";
 import Tablelog from "../UI/Tablelog";
+import classes from './Infotimelog.module.css'
 
 const Infotimelog = () => {
     const dataCols = ['Date', 'TIme']
@@ -8,7 +9,7 @@ const Infotimelog = () => {
         {item:'December 4, 2021', subitem:'11:19 PM'},
     ]
     return(
-        <section>
+        <section className={classes.Tablelog}>
             <Tablelog columns={dataCols} rows={dataRows} />
         </section>
     );

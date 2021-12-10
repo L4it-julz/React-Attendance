@@ -15,6 +15,23 @@
   align-items: center;
 }
 
+/* Stack the layout on small devices/viewports. */
+@media only screen and (max-width: 760px) {
+  .wrapper { 
+    grid-template-areas: 
+    "head-1"
+    "datetimeDisplay"
+    "info-1"
+    "employeeTime"
+    "searchbar";
+    grid-template-rows: 1fr;  
+    grid-template-columns: 21em;
+    /* margin: 0 auto; */
+    justify-content: center;
+    align-items: center;
+ }
+}
+
 #header {
   grid-area: head-1;
   }
