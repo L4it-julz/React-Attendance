@@ -12,7 +12,6 @@ const EmployeeTime = () => {
     return(
         <section className={classes.emp}>
             <div><Tablelog columns={dataCols} rows={dataRows} /></div>
-            
         </section>
     );
 }

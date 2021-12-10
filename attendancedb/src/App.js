@@ -4,20 +4,25 @@ import Info from './components/Info/Info';
 import Header from "./components/Layout/Header";
 import EmployeeTime from './components/onduty/EmployeeTime';
 import Searchbar from './components/SearchArea/Searchbar';
-
+import './App.css'
 
 function App() {
   return (
     <Fragment>
-      <Header />
-      <main>
+      <div className='wrapper'>
+        <div id="header">
+          <Header />
+        </div>
+        <div id='datetimeDisplay'>
         <DatetimeDisplay />
+        </div>
+        <div id='info'>
         <Info />
-        <EmployeeTime />
-        <Searchbar />
-      </main>
+        </div>
+        <div id='employeeTime'> <EmployeeTime /></div>
+        <div id='searchbar'><Searchbar /></div>
+      </div>
     </Fragment>
-    
   );
 }
 

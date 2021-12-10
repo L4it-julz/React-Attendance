@@ -10,10 +10,17 @@ import Infotimelog from "./Infotimelog";
 const Info = (props) => {
     return(
         <section className={classes.info}>
-            <img src={empIcon} className={classes.picture} />
-            <Textinput title={'ID:'} value={10462}/>
-            <Textinput title={'NAME:'} value={'JULIUS LEGASPI'}/>
-            <Textinput title={'BRANCH:'} value={'LANANG - B1'}/>
+            <div className={classes.container}>
+                <div>
+                    <Textinput title={'ID:'} value={10462}/>
+                    <Textinput title={'NAME:'} value={'JULIUS LEGASPI'}/>
+                    <Textinput title={'BRANCH:'} value={'LANANG - B1'}/>
+                </div>
+                <div>
+                    <img src={empIcon} className={classes.picture} />
+                </div>
+            </div>
+            
            <Infotimelog />
         </section>
     );
