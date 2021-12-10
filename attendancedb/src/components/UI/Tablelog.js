@@ -1,17 +1,20 @@
 import React from "react";
 import classes from './Tablelog.module.css'
 
-const Tablelog = () => {
+const Tablelog = (props) => {
     return(
         <table className={classes.table}>
             <tr>
-                <th>Date</th>
-                <th>Time</th>
+                {props.columns.map(col => <th>{col}</th>)}
             </tr>
-            <tr>
-                <td>December 04, 2021</td>
-                <td>05:19 PM</td>
-            </tr>
+           
+                {props.rows.map(row => 
+                     <tr>
+                <td>{row.item}</td>
+                <td>{row.subitem}</td>
+                </tr>
+                )}
+            
         </table>
     );
 }

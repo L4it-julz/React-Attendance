@@ -1,6 +1,7 @@
 .info {
     margin-top: 10px;
     width: auto;
+    height: 380px;
     border: 1px solid black;
     border-radius: 16px;
     text-align: center;

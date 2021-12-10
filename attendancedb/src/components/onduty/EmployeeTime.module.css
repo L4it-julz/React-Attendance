@@ -1,0 +1,8 @@
+.emp {
+    margin-top: 10px;
+    width: auto;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 16px;
+   text-align: center;
+}
