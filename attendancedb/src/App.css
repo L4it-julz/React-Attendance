@@ -2,17 +2,19 @@
   display: grid;
   grid-template-areas: 
     "head-1 head-1"
+    "welcome welcome"
     "info-1 datetimeDisplay"
     "info-1 employeeTime"
     "searchbar searchbar";
   grid-template-rows: 80px 1fr;  
   grid-template-columns: 50% 25em;
   grid-row-gap: 10px;
-  grid-column-gap: 10px;
-  height: 80vh;
-  margin: 0 auto;
+  grid-column-gap: 5px;
+  height: 60vh;
+  /* margin: 0 auto; */
   justify-content: center;
   align-items: center;
+  min-width: 450px;
 }
 
 /* Stack the layout on small devices/viewports. */
@@ -20,13 +22,13 @@
   .wrapper { 
     grid-template-areas: 
     "head-1"
+    "welcome"
     "datetimeDisplay"
     "info-1"
     "employeeTime"
     "searchbar";
     grid-template-rows: 1fr;  
     grid-template-columns: 21em;
-    /* margin: 0 auto; */
     justify-content: center;
     align-items: center;
  }
@@ -50,5 +52,9 @@
 
   #searchbar {
     grid-area: searchbar;
+  }
+
+  #welcome {
+    grid-area: welcome;
   }
 

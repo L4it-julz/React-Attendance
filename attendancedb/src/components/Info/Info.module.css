@@ -7,19 +7,18 @@
 }
 
 .picture {
-    width: auto;
-    height: auto;
+    width: 120px;
+    height: 100px;
     margin-top: 5px;
 }
 
-.container{
+.container {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 10px;
-    background-color: #2196F3;
+    background-color: #053970;
     padding: 10px;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     text-align: center;
-
 }

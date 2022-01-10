@@ -12,20 +12,38 @@
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1335px) {
     /* For mobile phones: */
     [class*="col-"] {
       width: 100%;
     }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      color: rgb(255, 255, 255);
+  }
+  
+  .input{
+      font-size: 16px;
+      font-weight: bold;
+  }
+  
+  .context {
+    text-align: right;
+  }
   }
   
 .title {
-    font-size: 25px;
+    font-size: 21px;
     font-weight: bold;
+    color: rgb(255, 255, 255);
 }
 
 .input{
-    font-size: 25px;
+    font-size: 21px;
     font-weight: bold;
 }
 
+.context {
+  text-align: right;
+}

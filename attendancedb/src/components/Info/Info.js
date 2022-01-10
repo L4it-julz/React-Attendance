@@ -12,9 +12,9 @@ const Info = (props) => {
         <section className={classes.info}>
             <div className={classes.container}>
                 <div>
-                    <Textinput title={'ID:'} value={10462}/>
-                    <Textinput title={'NAME:'} value={'JULIUS LEGASPI'}/>
-                    <Textinput title={'BRANCH:'} value={'LANANG - B1'}/>
+                    <Textinput title={'NAME: '} value={'JULIUS LEGASPI'}/>
+                    <Textinput title={'LOCATION: '} value={'LANANG - BLDG. 1'}/>
+                    <Textinput title={'ASSIGNMENT: '} value={'IT STAFF'}/>
                 </div>
                 <div>
                     <img src={empIcon} className={classes.picture} />

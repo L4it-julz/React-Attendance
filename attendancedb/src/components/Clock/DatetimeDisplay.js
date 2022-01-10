@@ -14,7 +14,7 @@ const DatetimeDisplay = () => {
     return(
         <section className={classes.dateSection}>
             <h1 className={classes.dayname}>{dayName}</h1>
-            <h1 className={classes.daytime}><Clock format={'hh-mm'} /></h1>
+            <h1 className={classes.daytime}><Clock format={'hh-mm-ss'} size={12}/></h1>
             <h1 className={classes.monthname}>{monthName} {dayNumber}</h1>
             <h1 className={classes.year}>{yearNumber}</h1>
         </section>

@@ -13,6 +13,9 @@ function App() {
         <div id="header">
           <Header />
         </div>
+        <div id='welcome'>
+          <h1>Welcome to Lanang BLGD 1!</h1>
+        </div>
         <div id='datetimeDisplay'>
         <DatetimeDisplay />
         </div>
