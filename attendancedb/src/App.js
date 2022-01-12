@@ -5,11 +5,12 @@ import Header from "./components/Layout/Header";
 import EmployeeTime from './components/onduty/EmployeeTime';
 import Searchbar from './components/SearchArea/Searchbar';
 import './App.css'
+import Biometric from './pages/biometric';
 
 function App() {
   return (
     <Fragment>
-      <div className='wrapper'>
+      {/* <div className='wrapper'>
         <div id="header">
           <Header />
         </div>
@@ -24,7 +25,9 @@ function App() {
         </div>
         <div id='employeeTime'> <EmployeeTime /></div>
         <div id='searchbar'><Searchbar /></div>
-      </div>
+      </div> */}
+
+      <Biometric />
     </Fragment>
   );
 }

@@ -8,6 +8,7 @@ import Infotimelog from "./Infotimelog";
 
 
 const Info = (props) => {
+    console.log('datas', props )
     return(
         <section className={classes.info}>
             <div className={classes.container}>
