@@ -2,11 +2,13 @@ import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import createSagaMiddleware from "@redux-saga/core";
 
 import employeeReducer from "./ducks/employees"
+import attendanceReducer from "./ducks/attendance";
 
 import { watcherSaga } from "./sagas/rootSaga";
 
 const reducer = combineReducers({
     employee: employeeReducer,
+    attendance: attendanceReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
