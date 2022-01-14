@@ -63,6 +63,7 @@ const Biometric = () => {
       const [info, setInfo] = useState(init)
       const [att, setAtt] = useState(attendance)
       const [logs, setlogs] = useState('');
+      const [msg, setmsg] = useState('')
       const [barcode, setBarcode] = useState('')
     //   dispatch(getAttendance());
      
@@ -72,24 +73,38 @@ const Biometric = () => {
 
       const search = (barcode) => {
         setBarcode(barcode.value)
+        var d = new Date();
+        var hour = d.getHours() >= 10 ?  d.getHours() : '0' + d.getHours();
+        var minute = d.getMinutes() >= 10 ? d.getMinutes() : '0' + d.getMinutes();
+        var seconds = d.getSeconds() >= 10 ? d.getSeconds() : '0' + d.getSeconds();
+        var dates = d.getDate();
+        var months = d.getMonth()+1;
+        var years = d.getFullYear();
+        var fullDate = `${years}-${months}-${dates}`
 
         if(barcode.value.length == 13){
             var data = employee.filter(emp => emp.externalID === barcode.value);
+            var check = att.filter(times => times.externalID === barcode.value && times.logDate === fullDate);
             setInfo(data ? data[0] : init)
         }
         
-       
-        if (data) {
-            var d = new Date();
-            var hour = d.getHours() >= 10 ?  d.getHours() : '0' + d.getHours();
-            var minute = d.getMinutes() >= 10 ? d.getMinutes() : '0' + d.getMinutes();
-            var seconds = d.getSeconds() >= 10 ? d.getSeconds() : '0' + d.getSeconds();
-            var dates = d.getDate();
-            var months = d.getMonth()+1;
-            var years = d.getFullYear();
-            var fullDate = `${years}-${months}-${dates}`
-            // console.log('fullyear', fullDate)
+       if(check){
+           var c =  check[check.length -1].logTime;
+           var realmins = (d.getHours() * 60) + d.getMinutes();
+           var logmins = (parseInt(c.split(':')[0]) * 60) + parseInt(c.split(':')[1]) + 3;
+           var pass = 0;
+           console.log('check', realmins + ' '+ logmins)
 
+           if(realmins > logmins){
+            pass = 1;
+            setmsg('THANK YOU!!!')
+           } else {
+            setmsg('YOU HAVE SIGN IN!!!')
+           }
+       }
+
+        if (pass) {
+           
             var newlog = {
                 empID: data[0].empID,
                 externalID: data[0].externalID,
@@ -97,6 +112,7 @@ const Biometric = () => {
                 logTime: `${hour}:${minute}:${seconds}`,
                 name: data[0].fname + ' ' + data[0].lname
             }
+
             dispatch(postAttendance(newlog))
             setAtt(attendance)
                 var logTime = att.filter(times => times.externalID === barcode.value && times.logDate === fullDate);
@@ -135,7 +151,7 @@ const Biometric = () => {
             <div className="container" style={{paddingTop:20}} >
                 <div className="row">
                     <div className="col">
-                        <Infos data={info} logs={att ? att : ''}/>
+                        <Infos data={info} logs={att ? att : ''} msg={msg} />
                     </div>
                     <div className="col">
                         <Logs data={att}/>

@@ -7,7 +7,8 @@ import classes from './Info.module.css';
 
 const Infos = (props) => {
     const data = props.data;
-    const logs = props.logs
+    const logs = props.logs;
+    const notify = props.msg;
 
     var d = new Date();
     var dates = d.getDate();
@@ -66,7 +67,7 @@ const Infos = (props) => {
 </Table>
             </div>
             <center>
-                <div className={classes.notification}><b>THANK YOU / YOU HAVE SIGN IN</b></div>
+                <div className={classes.notification}><b>{notify}</b></div>
             </center>
             </div>
       </div>
