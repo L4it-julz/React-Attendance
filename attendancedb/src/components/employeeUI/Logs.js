@@ -4,8 +4,13 @@ import { Form, Card, Table, InputGroup, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Logs = (props) => {
-    // console.log("time",props)
-    const data = props.data
+    var d = new Date();
+    var dates = d.getDate();
+    var months = d.getMonth()+1;
+    var years = d.getFullYear();
+    var fullDate = `${years}-${months}-${dates}`;
+
+    const data = props.data ? props.data.filter(e => e.logDate === fullDate) : ''
     console.log("time", data)
     const name = 'julius legaspi'
     const time = "11:50 PM"
@@ -19,7 +24,13 @@ const Logs = (props) => {
                          overflowY: 'scroll',
                          height: '20rem'
                     }}>
-                        {data ? data.map( e => <p>{e.name} - {e.logTime}</p> ): ''}
+
+                        {data ? [].concat(data)
+                            .sort((a, b) => a.attID < b.attID ? 1 : -1)
+                            .map((e, i) => 
+                            <p key={i}>{e.name} - {e.logTime}</p>
+                            ): ''}  
+                        {/* {data ? data.map( e => <p>{e.name} - {e.logTime}</p> ): ''} */}
                         {/* <p>{name} - {time}</p> */}
                         
                     </div>

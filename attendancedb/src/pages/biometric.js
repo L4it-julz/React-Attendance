@@ -5,7 +5,7 @@ import Header from '../components/Header/header';
 
 
 import { getEmployee } from '../redux/ducks/employees';
-import { getAttendance } from '../redux/ducks/attendance';
+import { getAttendance, postAttendance } from '../redux/ducks/attendance';
 
 import { Form, Card, Table, InputGroup, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,7 +21,7 @@ const init = {
     barcode: '',
     empID: null,
     fname: "",
-    internalID: "",
+    externalID: "",
     lname: "",
     location: "",
     mname: "",
@@ -31,17 +31,26 @@ const init = {
 const init_att = {
     attID: '',
     empID: '',
-    internalID: '',
+    externalID: '',
     logDate: '',
     logTime: '',
     name: ''
+}
+
+const init_time = {
+    attID: '',
+    empID: '',
+    externalID: '',
+    logDate: "",
+    logTime: "",
+    name: ""
 }
 
 
 
 const Biometric = () => {
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         dispatch(getEmployee());
         dispatch(getAttendance());
@@ -53,51 +62,82 @@ const Biometric = () => {
 
       const [info, setInfo] = useState(init)
       const [att, setAtt] = useState(attendance)
+      const [logs, setlogs] = useState('');
       const [barcode, setBarcode] = useState('')
     //   dispatch(getAttendance());
      
     setTimeout(() => {
         setAtt(attendance)
-      }, 1000);
+      }, 100);
 
       const search = (barcode) => {
-        setBarcode(barcode)
-        setAtt(attendance)
-        var data = employee.filter(emp => emp.internalID === parseInt(barcode))
-        setInfo(data ? data[0] : init)
-        console.log('search', data[0])
+        setBarcode(barcode.value)
+
+        if(barcode.value.length == 13){
+            var data = employee.filter(emp => emp.externalID === barcode.value);
+            setInfo(data ? data[0] : init)
+        }
+        
+       
+        if (data) {
+            var d = new Date();
+            var hour = d.getHours() >= 10 ?  d.getHours() : '0' + d.getHours();
+            var minute = d.getMinutes() >= 10 ? d.getMinutes() : '0' + d.getMinutes();
+            var seconds = d.getSeconds() >= 10 ? d.getSeconds() : '0' + d.getSeconds();
+            var dates = d.getDate();
+            var months = d.getMonth()+1;
+            var years = d.getFullYear();
+            var fullDate = `${years}-${months}-${dates}`
+            // console.log('fullyear', fullDate)
+
+            var newlog = {
+                empID: data[0].empID,
+                externalID: data[0].externalID,
+                logDate: fullDate,
+                logTime: `${hour}:${minute}:${seconds}`,
+                name: data[0].fname + ' ' + data[0].lname
+            }
+            dispatch(postAttendance(newlog))
+            setAtt(attendance)
+                var logTime = att.filter(times => times.externalID === barcode.value && times.logDate === fullDate);
+                console.log('fullyear', logTime)
+                setlogs(logTime ? logTime : '')
+            
+           
+        }
+        
+        return barcode.select()
        
       }
 
       
 
     return (
-        <main style={{backgroundColor: '#EAEFF2', height: 650}}>
+        <main style={{backgroundColor: '#E7F2F8', height: 720,  overflow:'hidden'}}>
               <center>
                         <Header />
                         <div  style={{ width: '25rem' }}>
                             <InputGroup className="mb-3">
                                     <InputGroup.Text id="basic-addon1">BIOMETRIC ID NO:</InputGroup.Text>
                                     <FormControl
-                                    // placeholder="lastname"
-                                    aria-label="lastname"
                                     aria-describedby="basic-addon1"
                                     value={barcode}
-                                    onChange={e => search(e.target.value)}
+                                    onChange={e => search(e.target)}
+                                    autoFocus
+                                    onFocus={e => e.target.select()}
+                                    
                                     />
                             </InputGroup>
                         </div>
                         
-                        {/* <input type='text' value={barcode} onChange={e => search(e.target.value)}/> */}
-                        {/* <Info  data={info}/> */}
                    
             </center>        
-            <div class="container" style={{paddingTop:20}} >
-                <div class="row">
-                    <div class="col">
-                        <Infos data={info}/>
+            <div className="container" style={{paddingTop:20}} >
+                <div className="row">
+                    <div className="col">
+                        <Infos data={info} logs={att ? att : ''}/>
                     </div>
-                    <div class="col">
+                    <div className="col">
                         <Logs data={att}/>
                     </div>
                 </div>
