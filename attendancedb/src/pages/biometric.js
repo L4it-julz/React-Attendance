@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+
+import ReactCursorPosition from 'react-cursor-position';
 
 import Header from '../components/Header/header';
 
@@ -13,6 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Infos from '../components/employeeUI/Info';
 import Logs from '../components/employeeUI/Logs';
 import Footer from '../components/Footer/footer';
+import { Alert } from 'react-alert'
 
 ;
 
@@ -51,6 +54,7 @@ const init_time = {
 const Biometric = () => {
     const dispatch = useDispatch();
     
+    
     useEffect(() => {
         dispatch(getEmployee());
         dispatch(getAttendance());
@@ -65,6 +69,7 @@ const Biometric = () => {
       const [logs, setlogs] = useState('');
       const [msg, setmsg] = useState('')
       const [barcode, setBarcode] = useState('')
+      const [cursor, setCursor] = useState(56);
     //   dispatch(getAttendance());
      
     setTimeout(() => {
@@ -78,33 +83,87 @@ const Biometric = () => {
         var minute = d.getMinutes() >= 10 ? d.getMinutes() : '0' + d.getMinutes();
         var seconds = d.getSeconds() >= 10 ? d.getSeconds() : '0' + d.getSeconds();
         var dates = d.getDate();
-        var months = d.getMonth()+1;
+        var months = d.getMonth()+1 > 10 ? d.getMonth()+1 :`0${d.getMonth()+1}`;
         var years = d.getFullYear();
         var fullDate = `${years}-${months}-${dates}`
 
-        if(barcode.value.length == 13){
+        console.log('find', employee.find(emp => emp.externalID === barcode.value))
+
+        if(employee.find(emp => emp.externalID === barcode.value)){
             var data = employee.filter(emp => emp.externalID === barcode.value);
             var check = att.filter(times => times.externalID === barcode.value && times.logDate === fullDate);
-            setInfo(data ? data[0] : init)
+            console.log('check', check.length)
+            setInfo(data[0])
+        } else {
+            setmsg('EMPLOYEE NOT FOUND !!!')
+
+              
+            // reset after 30secs
+            setTimeout(() => {
+                setInfo(init)
+                setAtt('')
+                setmsg('')
+              }, 30000);
+
+            
         }
         
        if(check){
-           var c =  check[check.length -1].logTime;
-           var realmins = (d.getHours() * 60) + d.getMinutes();
-           var logmins = (parseInt(c.split(':')[0]) * 60) + parseInt(c.split(':')[1]) + 3;
+           if(check.length){ 
+            var c =  check[check.length - 1].logTime;
+            var realmins = (d.getHours() * 60) + d.getMinutes();
+            var logmins = (parseInt(c.split(':')[0]) * 60) + parseInt(c.split(':')[1]) + 3;
+            }
+          
            var pass = 0;
-           console.log('check', realmins + ' '+ logmins)
+        //    console.log('check', realmins + ' '+ logmins)
+            if(!check.length){
+                pass = 1;
+                setmsg('THANK YOU !!!')
+                setBarcode('')
 
-           if(realmins > logmins){
+                  
+            // reset after 30secs
+            setTimeout(() => {
+                setInfo(init)
+                setAtt('')
+                setmsg('')
+              }, 30000);
+
+            
+            }
+           else if(realmins > logmins){
             pass = 1;
-            setmsg('THANK YOU!!!')
+            setBarcode('')
+            setmsg('THANK YOU !!!')
+
+              
+            // reset after 30secs
+            setTimeout(() => {
+                setInfo(init)
+                setAtt('')
+                setmsg('')
+              }, 30000);
+
+
            } else {
-            setmsg('YOU HAVE SIGN IN!!!')
+            setBarcode('')
+            setmsg('YOU HAVE SIGN IN !!!')
+
+              
+            // reset after 30secs
+            setTimeout(() => {
+                setInfo(init)
+                setAtt('')
+                setmsg('')
+              }, 30000);
+
+            
            }
-       }
+       } 
 
         if (pass) {
-           
+           console.log('checkData', data)
             var newlog = {
                 empID: data[0].empID,
                 externalID: data[0].externalID,
@@ -116,39 +175,42 @@ const Biometric = () => {
             dispatch(postAttendance(newlog))
             setAtt(attendance)
                 var logTime = att.filter(times => times.externalID === barcode.value && times.logDate === fullDate);
-                console.log('fullyear', logTime)
                 setlogs(logTime ? logTime : '')
-            
-           
         }
         
-        return barcode.select()
+        // return barcode.select()
        
       }
 
       
 
     return (
-        <main style={{backgroundColor: '#E7F2F8', height: 720,  overflow:'hidden'}}>
+        <ReactCursorPosition>
+        <main style={{backgroundColor: '#E7F2F8', height: 720,  overflow:'hidden'}} >
               <center>
                         <Header />
                         <div  style={{ width: '25rem' }}>
+
                             <InputGroup className="mb-3">
-                                    <InputGroup.Text id="basic-addon1">BIOMETRIC ID NO:</InputGroup.Text>
+                                    {/* <InputGroup.Text id="basic-addon1">BIOMETRIC ID NO:</InputGroup.Text> */}
                                     <FormControl
                                     aria-describedby="basic-addon1"
                                     value={barcode}
                                     onChange={e => search(e.target)}
-                                    autoFocus
-                                    onFocus={e => e.target.select()}
                                     
+                                     autoFocus
+                                    // onFocus={}
+                                    selection={{start:0, end:0}}
+                                    // onFocus={e => e.target.select()}
+                                    placeholder='BIOMETRIC ID NO:'
+                                    type="password"
                                     />
                             </InputGroup>
                         </div>
                         
                    
             </center>        
-            <div className="container" style={{paddingTop:20}} >
+            <div className="container" style={{paddingTop:20, width: '1900px'}} >
                 <div className="row">
                     <div className="col">
                         <Infos data={info} logs={att ? att : ''} msg={msg} />
@@ -160,6 +222,7 @@ const Biometric = () => {
             </div>
           <Footer />
         </main>
+        </ReactCursorPosition>
     );
 }
 

@@ -10,3 +10,29 @@
     color: white;
     text-align: center;
 }
+
+.notification1 {
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    padding-top: 2px;
+   margin-top: 30px;
+    width: 100%;
+    min-height: 30px;
+    background-color: rgb(13, 199, 232);
+    color: white;
+    text-align: center;
+}
+
+.notification2 {
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    padding-top: 2px;
+   margin-top: 30px;
+    width: 100%;
+    min-height: 30px;
+    background-color: rgb(233, 10, 40);
+    color: white;
+    text-align: center;
+}

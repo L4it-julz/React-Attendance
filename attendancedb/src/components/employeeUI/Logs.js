@@ -4,9 +4,10 @@ import { Form, Card, Table, InputGroup, FormControl } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Logs = (props) => {
+    console.log('logsCheck', props)
     var d = new Date();
     var dates = d.getDate();
-    var months = d.getMonth()+1;
+    var months = d.getMonth()+1 > 10 ? d.getMonth()+1 :`0${d.getMonth()+1}`;
     var years = d.getFullYear();
     var fullDate = `${years}-${months}-${dates}`;
 

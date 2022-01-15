@@ -12,7 +12,7 @@ const Infos = (props) => {
 
     var d = new Date();
     var dates = d.getDate();
-    var months = d.getMonth()+1;
+    var months = d.getMonth()+1 > 10 ? d.getMonth()+1 :`0${d.getMonth()+1}`;
     var years = d.getFullYear();
     var fullDate = `${years}-${months}-${dates}`;
 
@@ -67,7 +67,7 @@ const Infos = (props) => {
 </Table>
             </div>
             <center>
-                <div className={classes.notification}><b>{notify}</b></div>
+                <div className={!notify ? classes.notification1 :notify === 'THANK YOU !!!'?classes.notification:classes.notification2}><b>{notify}</b></div>
             </center>
             </div>
       </div>

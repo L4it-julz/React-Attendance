@@ -1,6 +1,6 @@
 import axios from "axios";
 
-var host = 'localhost';
+var host = '192.168.0.119';
 var port = '3030';
 
 export function requestGetAttendance() {
