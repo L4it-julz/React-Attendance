@@ -1,12 +1,12 @@
 import React from "react";
+import classes from "./administrator.module.css"
 
 const Administrator = () => {
     return (
         <main>
-            <center>
-            <h1>welcome to Administrator!!</h1>
-            <h1>soon it will open!!</h1>
-            </center>
+           <div className={classes.navbar} >header</div>
+           <div className="body"> body</div>
+           <div className="footer">footer</div>
         </main>
     );
 }

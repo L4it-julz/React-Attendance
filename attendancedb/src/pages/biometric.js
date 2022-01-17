@@ -77,7 +77,6 @@ const Biometric = () => {
       const [logs, setlogs] = useState('');
       const [msg, setmsg] = useState('')
       const [barcode, setBarcode] = useState('')
-      const [cursor, setCursor] = useState(true);
       const [inputRef, setInputFocus] = UseFocus();
     //   dispatch(getAttendance());
      
@@ -112,6 +111,7 @@ const Biometric = () => {
                 setInfo(init)
                 setAtt('')
                 setmsg('')
+                setBarcode('')
               }, 30000);
 
             
@@ -158,6 +158,7 @@ const Biometric = () => {
            } else {
             setBarcode('')
             setmsg('YOU HAVE SIGN IN !!!')
+            return barcode
 
               
             // reset after 30secs
@@ -186,10 +187,11 @@ const Biometric = () => {
                 var logTime = att.filter(times => times.externalID === barcode.value && times.logDate === fullDate);
                 setlogs(logTime ? logTime : '')
         }
-        
-        return barcode.focus()
+        // barcode.value = '';
+        // return barcode.select()
        
       }
+
      
       const useMountEffect = (fun) => useEffect(fun, []);
       useMountEffect(  setInputFocus )
