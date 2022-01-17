@@ -15,9 +15,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Infos from '../components/employeeUI/Info';
 import Logs from '../components/employeeUI/Logs';
 import Footer from '../components/Footer/footer';
-import { Alert } from 'react-alert'
+import { Alert } from 'react-alert';
 
-;
 
 const init = {
     assign: "",
@@ -52,6 +51,15 @@ const init_time = {
 
 
 const Biometric = () => {
+
+    const UseFocus = () => {
+        const htmlElRef = useRef(null)
+        const setFocus = () => {htmlElRef.current &&  htmlElRef.current.focus()}
+    
+        return [ htmlElRef,  setFocus ] 
+    }
+
+    
     const dispatch = useDispatch();
     
     
@@ -69,7 +77,8 @@ const Biometric = () => {
       const [logs, setlogs] = useState('');
       const [msg, setmsg] = useState('')
       const [barcode, setBarcode] = useState('')
-      const [cursor, setCursor] = useState(56);
+      const [cursor, setCursor] = useState(true);
+      const [inputRef, setInputFocus] = UseFocus();
     //   dispatch(getAttendance());
      
     setTimeout(() => {
@@ -178,36 +187,35 @@ const Biometric = () => {
                 setlogs(logTime ? logTime : '')
         }
         
-        // return barcode.select()
+        return barcode.focus()
        
       }
-
-      
+     
+      const useMountEffect = (fun) => useEffect(fun, []);
+      useMountEffect(  setInputFocus )
 
     return (
         <ReactCursorPosition>
-        <main style={{backgroundColor: '#E7F2F8', height: 720,  overflow:'hidden'}} >
+        <main style={{backgroundColor: '#E7F2F8', height: 720,  overflow:'hidden'}} onClick={ setInputFocus }>
               <center>
                         <Header />
                         <div  style={{ width: '25rem' }}>
 
                             <InputGroup className="mb-3">
                                     {/* <InputGroup.Text id="basic-addon1">BIOMETRIC ID NO:</InputGroup.Text> */}
-                                    <FormControl
+                                    <FormControl className='input1'
                                     aria-describedby="basic-addon1"
                                     value={barcode}
                                     onChange={e => search(e.target)}
-                                    
-                                     autoFocus
-                                    // onFocus={}
-                                    selection={{start:0, end:0}}
-                                    // onFocus={e => e.target.select()}
                                     placeholder='BIOMETRIC ID NO:'
                                     type="password"
+                                    ref={inputRef}
                                     />
                             </InputGroup>
                         </div>
-                        
+                        {/* <button onClick={
+                             setInputFocus
+                             }> ok</button> */}
                    
             </center>        
             <div className="container" style={{paddingTop:20, width: '1900px'}} >

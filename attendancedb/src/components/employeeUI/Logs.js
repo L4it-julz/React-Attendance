@@ -25,11 +25,17 @@ const Logs = (props) => {
                          overflowY: 'scroll',
                          height: '20rem'
                     }}>
+                        <table>
 
+                        </table>
                         {data ? [].concat(data)
                             .sort((a, b) => a.attID < b.attID ? 1 : -1)
                             .map((e, i) => 
-                            <p key={i}>{e.name} - {e.logTime}</p>
+                            <tr key={i}>
+                                <th style={{width:'200px'}}>{e.name}</th>
+                                <th>{e.logTime}</th>
+                            </tr>
+                            // <p key={i}>{e.name} - {e.logTime}</p>
                             ): ''}  
                         {/* {data ? data.map( e => <p>{e.name} - {e.logTime}</p> ): ''} */}
                         {/* <p>{name} - {time}</p> */}
